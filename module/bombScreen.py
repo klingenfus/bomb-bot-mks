@@ -147,7 +147,7 @@ class BombScreen:
             else:
                 image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
         
-            TelegramBot.send_message_with_image(image, "Se liga no BCOIN desse baú, não deixe de contribuir com a evolução do bot :D")
+            TelegramBot.send_message_with_image(image, "BCoins " + date_formatted())
         except Exception as e:
             logger(str(e))
             logger("😬 Ohh no! We couldn't send your farm report to Telegram.", color="yellow", force_log_file=True)
