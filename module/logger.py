@@ -2,6 +2,7 @@ import sys
 import time
 from .config import Config
 from enum import Enum
+from datetime import date
 
 class LoggerEnum(Enum):
     ACTION = 0
@@ -9,7 +10,7 @@ class LoggerEnum(Enum):
     PAGE_FOUND = 2
     TIMER_REFRESH = 3
     ERROR = 4
-    
+    LOGGER = 5
 
 COLOR = {
     "blue": "\033[94m",
@@ -42,7 +43,8 @@ def logger(message, color="default", force_log_file=False, terminal=True, dateti
         print(formatted_message_colored, end=end)
 
     if Config.get('generals','save_log_file') or force_log_file:
-        with open("./logs/logger.log", "a+", encoding='utf-8') as logger_file:
+        date_now = date.today().strftime("%Y-%m-%d")
+        with open("./logs/" + date_now + "-logger.log", "a+", encoding='utf-8') as logger_file:
             logger_file.write(formatted_message + '\n')
 
 def logger_translated(text: str, loggerEnum: LoggerEnum):
@@ -56,8 +58,11 @@ def logger_translated(text: str, loggerEnum: LoggerEnum):
         logger(f"🍺 Refresh {text}.")
     elif loggerEnum.value == LoggerEnum.ERROR.value:
         logger(f"🆘 {text}.")
+    elif loggerEnum.value == LoggerEnum.LOGGER.value:
+        logger(f"🆘 {text}.")
     
 def reset_log_file():
-    file = open("./logs/logger.log","w")
+    date_now = date.today().strftime("%Y-%m-%d")
+    file = open("./logs/" + date_now + "-logger.log","w")
     file.close()
     

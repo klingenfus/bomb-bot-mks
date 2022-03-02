@@ -86,7 +86,6 @@ class Image:
         target_img = Image.TARGETS[target]
         screen_img = Image.screen() if screen_image is None else screen_image
         result = cv2.matchTemplate(screen_img, target_img, cv2.TM_CCOEFF_NORMED)
-
         if not_target is not None:
             not_target_img = Image.TARGETS[not_target]
             not_target_result = cv2.matchTemplate(screen_img, not_target_img, cv2.TM_CCOEFF_NORMED)
